@@ -12,15 +12,30 @@
 <script>
 import ChatUser from '@/components/ChatUser.vue'
 import ChatMain from '@/components/ChatMain.vue'
+import io from 'socket.io-client'
 
 export default {
     name: 'ChatWindow',
     data: () => ({
         data: 'Chat',
+        socket: {},
         username: ''
     }),
     components: {
         ChatUser, ChatMain
+    },
+    created() {
+        this.socket = io("http://localhost:4113")
+    },
+    mounted() {
+        this.socket.on("greetings", data => {
+            console.log(data)
+        })
+    },
+    sockets: {
+        connect: function () {
+            console.log('connected')
+        }
     }
 }
 </script>
