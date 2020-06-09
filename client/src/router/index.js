@@ -3,23 +3,23 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Chat',
-    component: () => import('../views/Chat.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  }
+const routes = [
+    {
+        path: '/',
+        name: 'Auth',
+        component: () => import('../views/Auth.vue')
+    },
+    {
+        path: '/chat',
+        name: 'Chat',
+        component: () => import('../views/Chat.vue')
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
