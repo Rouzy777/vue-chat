@@ -45,19 +45,20 @@
                                     v-on:keyup.enter="send"
                                     placeholder="Write a message...">
 							</div>
-							<div class="col bg-shadow border-top row px-0">
-								<EmojiPicker>
+							<div class="col border-top row px-0 bg-shadow">
+								<EmojiPicker class='align-self-center'>
 									<div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
-										<button type="button">open</button>
+                                        <i class="far fa-smile text-muted emoji"></i>
 									</div>
-									<div slot="emoji-picker" slot-scope="{ emojis }">
+									<div slot="emoji-picker" class='scroll-smile shadow rounded p-2' slot-scope="{ emojis }">
 										<div>
 											<div v-for="(emojiGroup, category) in emojis" :key="category">
-												<h5>{{ category }}</h5>
-												<div>
+												<small class='text-uppercase font-weight-bold text-muted'>{{ category }}</small>
+												<div class='mb-1'>
 													<span
                                                         v-for="(emoji, emojiName) in emojiGroup"
                                                         :key="emojiName"
+                                                        class='emoji'
                                                         @click="goFuck(emoji)"
                                                         :title="emojiName">{{ emoji }}
                                                     </span>
@@ -66,7 +67,7 @@
 										</div>
 									</div>
 								</EmojiPicker>
-								<button v-if='newMessage' @click='send' class="col bg-shadow border-top border-left-0 border-right-0 border-bottom-0">
+								<button v-if='newMessage' @click='send' class="col bg-light border-0">
 									<i class="fas fa-long-arrow-alt-right"></i>
 								</button>
 							</div>
@@ -224,5 +225,23 @@ button:focus {
 .scroll {
 	max-height: 85.8vh !important;
 	overflow-y: scroll !important;
+}
+
+.scroll-smile {
+    max-height: 200px;
+    width: 255px;
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 70px;
+    right: 40px;
+}
+
+.emoji {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+button.bg-light:hover {
+    background-color: #f8f9fa !important;
 }
 </style>
