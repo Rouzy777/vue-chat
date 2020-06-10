@@ -6,7 +6,6 @@
 import ChatAuth from '@/components/ChatAuth.vue'
 
 export default {
-    name: 'ChatWindow',
     components: {
         ChatAuth
     }

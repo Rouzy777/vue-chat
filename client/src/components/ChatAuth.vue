@@ -21,7 +21,6 @@
 
 <script>
 export default {
-    name: 'ChatWindow',
     data: () => ({
         username: ''
     }),
