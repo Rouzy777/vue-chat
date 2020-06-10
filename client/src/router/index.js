@@ -22,4 +22,20 @@ const router = new VueRouter({
     routes
 })
 
+router.beforeEach((to, from, next) => {
+    if(to.path != '/') {
+        setTimeout(() => {
+            if(localStorage.username) {
+                //user has created username
+                next();
+            } else {
+                //user need to sign up
+                next('/');
+            }
+        }, 5)
+    } else {
+        next(); // This is where it should have been
+    }
+});
+
 export default router
