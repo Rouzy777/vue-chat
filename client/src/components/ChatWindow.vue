@@ -6,16 +6,32 @@
 		</div>
 	</div>
 	<div class='row px-0 col-12 mx-auto'>
-		<div class='col-xl-3 col-lg-4 px-0 bg-shadow'>
+        <transition name='fade'>
+            <div v-if='isOpen' class="sidebar bg-shadow">
+                <a class="closebtn mt-2 c-pointer" @click="isOpen = false">
+                    <i class="fas fa-times"></i>
+                </a>
+                <ChatUser
+                    :lastMsg='messages[messages.length - 1]'
+                    :notReadedMsgs='0'
+                    @click.native='chat = "Chat"; isOpen = false'
+                    class='px-2 hoverable sidebar-chat' />
+            </div>
+        </transition>
+		<div class='col-lg-3 col-md-4 px-0 bg-shadow d-md-block d-none'>
 			<ChatUser
                 :lastMsg='messages[messages.length - 1]'
-                :notReadedMsgs='0' @click.native='chat = "Chat"'
+                :notReadedMsgs='0'
+                @click.native='chat = "Chat"'
                 class='px-2 hoverable' />
 		</div>
-		<div class="col-xl-9 col-lg-8 px-0">
+		<div class="col-lg-9 col-md-8 px-0">
 			<div class="d-flex min-vh-100">
+                <div @click='isOpen = true' class='d-md-none d-block mobile-menu c-pointer m-3'>
+                    <i class="fas fa-2x fa-bars"></i>
+                </div>
 				<div v-if='!chat' class='m-auto'>
-					<h2 class='text-muted'>Choose dialog</h2>
+					<h2 class='text-muted us-none'>Choose dialog</h2>
 				</div>
 				<div class='d-flex flex-column col-12 px-0' v-else>
 					<nav class="navbar navbar-light bg-shadow border-left border-bottom">
@@ -23,9 +39,6 @@
 							<h6 class='mb-0'>{{chat}}</h6>
 							<p class='mb-0 text-muted'>{{connections}} members online</p>
 						</div>
-						<!-- <div class="">
-                                <span>123</span>
-                            </div> -->
 					</nav>
 					<div class='flex-grow-1 scroll p-3'>
 						<div v-for='(msg, i) in messages' :key='`msg.message-${i}`' class='col-7 px-0 mb-2'>
@@ -49,7 +62,6 @@
                                     placeholder="Write a message...">
 							</div>
 							<div class="col border-top row px-0 bg-shadow">
-                                <transition name='fade'>
 								<EmojiPicker class='mt-1 us-none align-self-center'>
 									<div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
 										<i class="far fa-smile text-muted emoji"></i>
@@ -74,7 +86,6 @@
 										</transition>
 									</div>
 								</EmojiPicker>
-                                </transition>
 								<transition name='fade'>
 									<button v-if='newMessage' class="col mt-1 px-1 bg-light border-0">
 										<span @click='send'>
@@ -105,6 +116,7 @@ export default {
 		newMessage: '',
 		messages: [],
 		typing: false,
+        isOpen: false,
 		info: [],
 		connections: 0,
 		chat: '',
@@ -211,8 +223,12 @@ export default {
 	user-select: none;
 }
 
+.c-pointer {
+    cursor: pointer;
+}
+
 .bg-shadow {
-	background-color: rgba(0, 0, 0, 0.03) !important;
+	background-color: #F7F7F7 !important;
 }
 
 .hoverable:hover {
@@ -249,7 +265,7 @@ button:focus {
 	overflow-y: scroll;
 	position: absolute;
 	bottom: 70px;
-	right: 40px;
+	right: 25px;
 }
 
 .emoji {
@@ -270,5 +286,34 @@ button.bg-light:focus {
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
+}
+
+.mobile-menu {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+}
+
+.sidebar {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+.sidebar-chat {
+    width: 100vw;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 </style>
