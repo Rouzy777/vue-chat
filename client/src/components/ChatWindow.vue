@@ -7,7 +7,10 @@
 	</div>
 	<div class='row px-0 col-12 mx-auto'>
 		<div class='col-xl-3 col-lg-4 px-0 bg-shadow'>
-			<ChatUser :lastMsg='messages[messages.length - 1]' :notReadedMsgs='0' @click.native='chat = "Chat"' class='px-2 hoverable' />
+			<ChatUser
+                :lastMsg='messages[messages.length - 1]'
+                :notReadedMsgs='0' @click.native='chat = "Chat"'
+                class='px-2 hoverable' />
 		</div>
 		<div class="col-xl-9 col-lg-8 px-0">
 			<div class="d-flex min-vh-100">
@@ -46,30 +49,39 @@
                                     placeholder="Write a message...">
 							</div>
 							<div class="col border-top row px-0 bg-shadow">
-								<EmojiPicker class='align-self-center'>
+                                <transition name='fade'>
+								<EmojiPicker class='mt-1 us-none align-self-center'>
 									<div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
-                                        <i class="far fa-smile text-muted emoji"></i>
+										<i class="far fa-smile text-muted emoji"></i>
 									</div>
 									<div slot="emoji-picker" class='scroll-smile shadow rounded p-2' slot-scope="{ emojis }">
-										<div>
-											<div v-for="(emojiGroup, category) in emojis" :key="category">
-												<small class='text-uppercase font-weight-bold text-muted'>{{ category }}</small>
-												<div class='mb-1'>
-													<span
-                                                        v-for="(emoji, emojiName) in emojiGroup"
-                                                        :key="emojiName"
-                                                        class='emoji'
-                                                        @click="goFuck(emoji)"
-                                                        :title="emojiName">{{ emoji }}
-                                                    </span>
-												</div>
-											</div>
-										</div>
+										<transition name='fade' appear>
+                                            <div>
+                                                <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                                    <small class='text-uppercase font-weight-bold text-muted'>{{ category }}</small>
+                                                    <div class='mb-1'>
+                                                        <span
+                                                            v-for="(emoji, emojiName) in emojiGroup"
+                                                            :key="emojiName"
+                                                            class='emoji'
+                                                            @click="append(emoji)"
+                                                            :title="emojiName">
+                                                            {{ emoji }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+										</transition>
 									</div>
 								</EmojiPicker>
-								<button v-if='newMessage' @click='send' class="col bg-light border-0">
-									<i class="fas fa-long-arrow-alt-right"></i>
-								</button>
+                                </transition>
+								<transition name='fade'>
+									<button v-if='newMessage' class="col mt-1 px-1 bg-light border-0">
+										<span @click='send'>
+											<i class="far emoji text-primary fa-arrow-alt-circle-right"></i>
+										</span>
+									</button>
+								</transition>
 							</div>
 						</div>
 					</div>
@@ -187,7 +199,7 @@ export default {
 				this.newMessage = '';
 			}
 		},
-		goFuck(emoji) {
+		append(emoji) {
 			this.newMessage += emoji
 		}
 	}
@@ -195,6 +207,10 @@ export default {
 </script>
 
 <style>
+.us-none {
+	user-select: none;
+}
+
 .bg-shadow {
 	background-color: rgba(0, 0, 0, 0.03) !important;
 }
@@ -228,20 +244,31 @@ button:focus {
 }
 
 .scroll-smile {
-    max-height: 200px;
-    width: 255px;
-    overflow-y: scroll;
-    position: absolute;
-    bottom: 70px;
-    right: 40px;
+	max-height: 200px;
+	width: 255px;
+	overflow-y: scroll;
+	position: absolute;
+	bottom: 70px;
+	right: 40px;
 }
 
 .emoji {
-    font-size: 22px;
-    cursor: pointer;
+	font-size: 22px;
+	cursor: pointer;
 }
 
-button.bg-light:hover {
-    background-color: #f8f9fa !important;
+button.bg-light:hover,
+button.bg-light:focus {
+	background-color: #f8f9fa !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity .3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
 }
 </style>
