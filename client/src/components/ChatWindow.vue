@@ -40,7 +40,7 @@
 							<p class='mb-0 text-muted'>{{connections}} members online</p>
 						</div>
 					</nav>
-					<div class='flex-grow-1 scroll p-3'>
+					<section class='flex-grow-1 scroll p-3'>
 						<div v-for='(msg, i) in messages' :key='`msg.message-${i}`' class='col-7 px-0 mb-2'>
 							<div class="d-inline-block bg-shadow rounded px-2 py-1">
 								<small :class='{"text-primary": msg.user === "Me", "text-muted": msg.user !== "Me"}'>{{msg.user}}</small>
@@ -51,8 +51,8 @@
 							</div>
 						</div>
 						<small class='text-muted' v-if="typing">{{typing}} is typing...</small>
-					</div>
-					<div>
+					</section>
+					<footer class='writer-absolute'>
 						<div class="col px-0 row">
 							<div class="col-11">
 								<input
@@ -95,7 +95,7 @@
 								</transition>
 							</div>
 						</div>
-					</div>
+					</footer>
 				</div>
 			</div>
 		</div>
@@ -255,8 +255,14 @@ button:focus {
 }
 
 .scroll {
-	max-height: 85.8vh !important;
+	max-height: 88vh !important;
 	overflow-y: scroll !important;
+}
+
+.writer-absolute {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
 
 .scroll-smile {
