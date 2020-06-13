@@ -1,5 +1,8 @@
 # vue-chat
 
+#### Demo
+![Demo](client/src/demo/demo.png)
+
 ## Project setup
 ```
 npm install
