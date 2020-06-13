@@ -1,4 +1,4 @@
-# vue-chat
+# Vue Chat
 
 #### Demo
 ![Demo](client/src/demo/demo.png)
