@@ -6,30 +6,30 @@
 		</div>
 	</div>
 	<div class='row px-0 col-12 mx-auto'>
-        <transition name='fade'>
-            <div v-if='isOpen' class="sidebar bg-shadow">
-                <a class="closebtn mt-2 c-pointer" @click="isOpen = false">
-                    <i class="fas fa-times"></i>
-                </a>
-                <ChatUser
-                    :lastMsg='messages[messages.length - 1]'
-                    :notReadedMsgs='0'
-                    @click.native='chat = "Chat"; isOpen = false'
-                    class='px-2 hoverable sidebar-chat' />
-            </div>
-        </transition>
+		<transition name='fade'>
+			<div v-if='isOpen' class="sidebar bg-shadow">
+				<a class="closebtn mt-2 c-pointer" @click="isOpen = false">
+					<i class="fas fa-times"></i>
+				</a>
+				<ChatUser
+					:lastMsg='messages[messages.length - 1]'
+					:notReadedMsgs='0'
+					@click.native='chat = "Chat"; isOpen = false'
+					class='px-2 hoverable sidebar-chat' />
+			</div>
+		</transition>
 		<div class='col-lg-3 col-md-4 px-0 bg-shadow d-md-block d-none'>
 			<ChatUser
-                :lastMsg='messages[messages.length - 1]'
-                :notReadedMsgs='0'
-                @click.native='chat = "Chat"'
-                class='px-2 hoverable' />
+				:lastMsg='messages[messages.length - 1]'
+				:notReadedMsgs='0'
+				@click.native='chat = "Chat"'
+				class='px-2 hoverable' />
 		</div>
 		<div class="col-lg-9 col-md-8 px-0">
 			<div class="d-flex min-vh-100">
-                <div @click='isOpen = true' class='d-md-none d-block mobile-menu c-pointer m-3'>
-                    <i class="fas fa-2x fa-bars"></i>
-                </div>
+				<div @click='isOpen = true' class='d-md-none d-block mobile-menu c-pointer m-3'>
+					<i class="fas fa-2x fa-bars"></i>
+				</div>
 				<div v-if='!chat' class='m-auto'>
 					<h2 class='text-muted us-none'>Choose dialog</h2>
 				</div>
@@ -56,10 +56,10 @@
 						<div class="col px-0 row">
 							<div class="col-11">
 								<input
-                                    class='col py-3 bg-shadow border-left border-top border-right-0 border-bottom-0 message-input'
-                                    v-model='newMessage'
-                                    v-on:keyup.enter="send"
-                                    placeholder="Write a message...">
+									class='col py-3 bg-shadow border-left border-top border-right-0 border-bottom-0 message-input'
+									v-model='newMessage'
+									v-on:keyup.enter="send"
+									placeholder="Write a message...">
 							</div>
 							<div class="col border-top row px-0 bg-shadow">
 								<EmojiPicker class='mt-1 us-none align-self-center'>
@@ -68,21 +68,16 @@
 									</div>
 									<div slot="emoji-picker" class='scroll-smile shadow rounded p-2' slot-scope="{ emojis }">
 										<transition name='fade' appear>
-                                            <div>
-                                                <div v-for="(emojiGroup, category) in emojis" :key="category">
-                                                    <small class='text-uppercase font-weight-bold text-muted'>{{ category }}</small>
-                                                    <div class='mb-1'>
-                                                        <span
-                                                            v-for="(emoji, emojiName) in emojiGroup"
-                                                            :key="emojiName"
-                                                            class='emoji'
-                                                            @click="append(emoji)"
-                                                            :title="emojiName">
-                                                            {{ emoji }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
+											<div>
+												<div v-for="(emojiGroup, category) in emojis" :key="category">
+													<small class='text-uppercase font-weight-bold text-muted'>{{ category }}</small>
+													<div class='mb-1'>
+														<span v-for="(emoji, emojiName) in emojiGroup" :key="emojiName" class='emoji' @click="append(emoji)" :title="emojiName">
+															{{ emoji }}
+														</span>
+													</div>
+												</div>
+											</div>
 										</transition>
 									</div>
 								</EmojiPicker>
@@ -116,7 +111,7 @@ export default {
 		newMessage: '',
 		messages: [],
 		typing: false,
-        isOpen: false,
+		isOpen: false,
 		info: [],
 		connections: 0,
 		chat: '',
@@ -224,7 +219,7 @@ export default {
 }
 
 .c-pointer {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .bg-shadow {
@@ -295,31 +290,31 @@ button.bg-light:focus {
 }
 
 .mobile-menu {
-    position: absolute;
-    right: 0;
-    z-index: 2;
+	position: absolute;
+	right: 0;
+	z-index: 2;
 }
 
 .sidebar {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    padding-top: 60px;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	padding-top: 60px;
 }
 
 .sidebar-chat {
-    width: 100vw;
+	width: 100vw;
 }
 
 .sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
 }
 </style>
